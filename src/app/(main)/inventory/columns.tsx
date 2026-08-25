@@ -1,0 +1,247 @@
+'use client';
+
+import type { ColumnDef, CellContext, TableMeta } from '@tanstack/react-table';
+import type { InventoryItem } from '@/types';
+import { Button } from '@/components/ui/button';
+import { MoreHorizontal } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
+import { format } from 'date-fns';
+
+// Extend TableMeta to include userRole and other meta properties
+declare module '@tanstack/react-table' {
+  interface TableMeta<TData> {
+    userRole?: string;
+    deleteItems?: (itemIds: string[]) => void;
+    editItem?: (item: InventoryItem) => void;
+    // Removed isClient from here, as it's no longer needed for direct checkbox conditional rendering
+  }
+  interface CellContext<TData, TValue> {
+    rowIndex?: number;
+  }
+}
+
+const ActionsCell = ({ row, table }: CellContext<InventoryItem, unknown>) => {
+  const item = row.original;
+  const userRole = table.options.meta?.userRole;
+  const { toast } = useToast();
+
+  const deleteItems = table.options.meta?.deleteItems as (itemIds: string[]) => void;
+  const editItem = table.options.meta?.editItem as (item: InventoryItem) => void;
+
+  if (!userRole) {
+    return null;
+  }
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(item.noData!);
+      toast({
+        title: 'Berhasil!',
+        description: 'Nomor data berhasil disalin ke clipboard.',
+      });
+    } catch (err) {
+      toast({
+        variant: 'destructive',
+        title: 'Gagal!',
+        description: 'Tidak dapat menyalin nomor data.',
+      });
+    }
+  };
+
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+        <DropdownMenuItem onClick={handleCopy}>
+          Salin Nomor Data
+        </DropdownMenuItem>
+        {userRole === 'admin' && (
+          <>
+            <DropdownMenuItem onClick={() => editItem(item)}>Ubah Data</DropdownMenuItem>
+            <DropdownMenuItem 
+              className="text-red-600 focus:text-red-600 focus:bg-red-50"
+              onClick={() => deleteItems([item.noData!])}
+            >
+              Hapus Data
+            </DropdownMenuItem>
+          </>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+const formatDate = (dateValue: unknown) => {
+    if (!dateValue) return <div className="px-4 py-2">-</div>;
+    try {
+        const date = new Date(dateValue as string | number | Date);
+        // Check if date is valid
+        if (isNaN(date.getTime())) return <div className="px-4 py-2">-</div>;
+        return <div className="px-4 py-2">{format(date, 'yyyy-MM-dd')}</div>;
+    } catch (e) {
+        return <div className="px-4 py-2">-</div>;
+    }
+}
+
+export const columns: ColumnDef<InventoryItem>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => {
+      const userRole = table.options.meta?.userRole;
+      
+      if (userRole !== 'admin') {
+        return null; // Don't render checkbox for non-admin on server or client
+      }
+
+      // For admin, render interactive checkbox
+      return (
+        <div className="px-1">
+          <Checkbox
+            checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+            aria-label="Select all"
+            // Removed disabled and className isClient conditions here
+          />
+        </div>
+      )
+    },
+    cell: ({ row, table }) => {
+       const userRole = table.options.meta?.userRole;
+       
+       if (userRole !== 'admin') {
+         return null; // Don't render checkbox for non-admin on server or client
+       }
+
+       // For admin, render interactive checkbox
+       return (
+        <div className="px-1">
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+            // Removed disabled and className isClient conditions here
+          />
+        </div>
+      )
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    id: 'rowNumber',
+    header: 'No.',
+    cell: ({ row, table }) => {
+      // Get all rows in current page
+      const currentPageRows = table.getPaginationRowModel().rows;
+      
+      // Find this row's index in current page
+      const rowIndexInPage = currentPageRows.findIndex(
+        pageRow => pageRow.id === row.id
+      );
+      
+      // If found, calculate row number
+      if (rowIndexInPage !== -1) {
+        const pageIndex = table.getState().pagination.pageIndex;
+        const pageSize = table.getState().pagination.pageSize;
+        const rowNumber = (pageIndex * pageSize) + rowIndexInPage + 1;
+        return <div className="px-4 py-2">{rowNumber}</div>;
+      }
+      
+      // Fallback
+      return <div className="px-4 py-2">{row.index + 1}</div>;
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
+  { accessorKey: 'jenisBarang', header: 'Jenis Barang' },
+  { accessorKey: 'indukNoBarang', header: 'Induk No. Barang' },
+  { accessorKey: 'indukHurufBarang', header: 'Induk Huruf Barang' },
+  { accessorKey: 'subJenisBarang', header: 'Sub Jenis Barang' },
+  { accessorKey: 'merkTipe', header: 'Merk/Tipe' },
+  { accessorKey: 'subKodeJenis', header: 'Sub Kode Jenis' },
+  { accessorKey: 'urutSubBarang', header: 'Urut Sub Barang' },
+  { accessorKey: 'sumberDana', header: 'Sumber Dana' },
+  { accessorKey: 'urutBarangDana', header: 'Urut Barang Dana' },
+  { accessorKey: 'areaRuang', header: 'Area/Ruang' },
+  { accessorKey: 'subAreaRuang', header: 'Sub-Area/Ruang' },
+  { 
+    accessorKey: 'tanggalPengadaan', 
+    header: 'Tanggal Pengadaan',
+    cell: ({ row }) => formatDate(row.getValue('tanggalPengadaan')), 
+  },
+  { accessorKey: 'supplier', header: 'Supplier' },
+  { 
+    accessorKey: 'harga', 
+    header: 'Harga (Rp)',
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue('harga'))
+      if (isNaN(amount)) return <div className="px-4 py-2">-</div>;
+      const formatted = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+      }).format(amount)
+      return <div className="font-medium px-4 py-2 text-right">{formatted}</div>
+    },
+  },
+  { accessorKey: 'statusPengadaan', header: 'Status Pengadaan' },
+  { accessorKey: 'statusBarang', header: 'Status Barang' },
+  { 
+    accessorKey: 'tanggalHapus', 
+    header: 'Tanggal Hapus',
+    cell: ({ row }) => formatDate(row.getValue('tanggalHapus')),
+  },
+  // Add the updatedAt column here, hidden by default but sortable
+  {
+    accessorKey: 'updatedAt',
+    header: 'Terakhir Diperbarui',
+    cell: ({ row }) => formatDate(row.getValue('updatedAt')),
+    enableHiding: true,
+    enableSorting: true,
+  },
+  { accessorKey: 'kodeVerifikasiBarang', header: 'Kode Verifikasi Barang' },
+  { accessorKey: 'kodeVerifikasiDana', header: 'Kode Verifikasi Dana' },
+  { accessorKey: 'kodeRekapTotal', header: 'Kode Rekap Total' },
+  { accessorKey: 'kodeRekapHapus', header: 'Kode Rekap Hapus' },
+  { accessorKey: 'kodeRekapDana', header: 'Kode Rekap Dana' },
+  // Kolom Tambahan
+  {
+    accessorKey: 'jumlah',
+    header: 'Jumlah',
+  },
+  {
+    accessorKey: 'satuan',
+    header: 'Satuan',
+  },
+  {
+    accessorKey: 'kondisi',
+    header: 'Kondisi',
+    cell: ({ row }) => {
+        const kondisi = row.getValue('kondisi') as string;
+        let badgeVariant: "default" | "secondary" | "destructive" = "secondary";
+        if (kondisi === 'Baik') badgeVariant = 'default';
+        if (kondisi === 'Rusak Berat') badgeVariant = 'destructive';
+        
+        return <div className="px-4 py-2"><Badge variant={badgeVariant} className="capitalize">{kondisi || '-'}</Badge></div>;
+    }
+  },
+  {
+    accessorKey: 'keterangan',
+    header: 'Keterangan',
+  },
+  {
+    id: 'actions',
+    enableHiding: false,
+    cell: ActionsCell,
+  },
+];
