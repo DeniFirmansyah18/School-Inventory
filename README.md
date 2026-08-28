@@ -1,11 +1,11 @@
 <h1 align="center">
-  <img src="https://img.icons8.com/fluency/96/school.png" alt="Sekolah Inventory Logo" width="80"/>
+  <img src="https://img.icons8.com/fluency/96/school.png" alt="School Inventory Logo" width="80"/>
   <br/>
-  Sekolah Inventory
+  School Inventory
 </h1>
 
 <p align="center">
-  Sistem manajemen inventaris sekolah berbasis web yang modern, responsif, dan berbasis peran (role-based).
+  A modern, responsive, and role-based web application for managing school assets and inventory.
 </p>
 
 <p align="center">
@@ -19,124 +19,126 @@
 
 ---
 
-## 📖 Daftar Isi
+## 📖 Table of Contents
 
-- [Tentang Proyek](#-tentang-proyek)
-- [Fitur Utama](#-fitur-utama)
-- [Teknologi yang Digunakan](#-teknologi-yang-digunakan)
-- [Arsitektur Proyek](#-arsitektur-proyek)
-- [Persyaratan Sistem](#-persyaratan-sistem)
-- [Instalasi & Konfigurasi](#-instalasi--konfigurasi)
-- [Menjalankan Aplikasi](#-menjalankan-aplikasi)
-- [Struktur Direktori](#-struktur-direktori)
-- [Peran Pengguna (Role)](#-peran-pengguna-role)
-- [Panduan Penggunaan](#-panduan-penggunaan)
-- [Lisensi](#-lisensi)
-
----
-
-## 🏫 Tentang Proyek
-
-**Sekolah Inventory** adalah aplikasi web manajemen inventaris yang dirancang khusus untuk lingkungan sekolah. Aplikasi ini memungkinkan pengelolaan data barang secara terpusat, mulai dari pencatatan aset, pemantauan status barang, hingga pembuatan laporan dalam berbagai format.
-
-Dibangun dengan **Next.js 15** dan **Firebase Firestore** sebagai backend real-time, aplikasi ini menawarkan pengalaman yang cepat, responsif, dan aman dengan sistem autentikasi berbasis peran (Admin & User).
+- [About the Project](#-about-the-project)
+- [Key Features](#-key-features)
+- [Tech Stack](#-tech-stack)
+- [Application Architecture](#-application-architecture)
+- [Prerequisites](#-prerequisites)
+- [Installation & Configuration](#-installation--configuration)
+- [Running the Application](#-running-the-application)
+- [Project Structure](#-project-structure)
+- [User Roles & Permissions](#-user-roles--permissions)
+- [Usage Guide](#-usage-guide)
+- [License](#-license)
 
 ---
 
-## ✨ Fitur Utama
+## 🏫 About the Project
 
-| Fitur | Deskripsi |
+**School Inventory** is a web-based asset management system specifically designed for school environments. It enables centralized management of school assets — from recording items and monitoring their condition, to generating reports in multiple formats.
+
+Built with **Next.js 15** and **Firebase Firestore** as a real-time backend, the application delivers a fast, responsive, and secure experience with a role-based authentication system supporting **Admin** and **User** roles.
+
+---
+
+## ✨ Key Features
+
+| Feature | Description |
 |---|---|
-| 🔐 **Autentikasi Aman** | Login & registrasi dengan proteksi rute berbasis peran (Admin / User) |
-| 📦 **Manajemen Inventaris** | Tambah, ubah, hapus, dan lihat data barang secara lengkap |
-| 🔍 **Pencarian & Filter** | Cari barang berdasarkan jenis, merk/tipe, atau sub jenis secara instan |
-| 📊 **Dashboard Admin** | Ringkasan statistik: total nilai, total barang, barang aktif, dan grafik pengadaan per tahun |
-| 📥 **Import Data (Excel)** | Impor data inventaris massal dari file `.xlsx` / `.xls` |
-| 📤 **Export Laporan** | Unduh laporan dalam format **CSV**, **Excel (.xlsx)**, atau **PDF** |
-| 🗂️ **Filter Laporan** | Filter laporan berdasarkan status barang (aktif/dihapus) dan rentang tanggal pengadaan |
-| 📱 **Responsif** | Tampilan optimal di desktop, tablet, dan perangkat mobile |
-| 🖥️ **Desktop App (Electron)** | Dapat dijalankan sebagai aplikasi desktop lintas platform (Windows, macOS, Linux) |
+| 🔐 **Secure Authentication** | Login & registration with route protection based on user roles (Admin / User) |
+| 📦 **Inventory Management** | Add, edit, delete, and view detailed asset records |
+| 🔍 **Search & Filter** | Instantly search items by type, brand/model, or sub-category |
+| 📊 **Admin Dashboard** | Summary statistics: total value, total items, active items, and a yearly procurement chart |
+| 📥 **Bulk Import (Excel)** | Import inventory data in bulk from `.xlsx` / `.xls` files |
+| 📤 **Report Export** | Download reports in **CSV**, **Excel (.xlsx)**, or **PDF** format |
+| 🗂️ **Report Filtering** | Filter reports by item status (active/disposed) and procurement date range |
+| 📱 **Fully Responsive** | Optimized layout for desktop, tablet, and mobile devices |
+| 🖥️ **Desktop App (Electron)** | Can be packaged as a native cross-platform desktop application (Windows, macOS, Linux) |
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## 🛠️ Tech Stack
 
 ### Frontend
-- **[Next.js 15](https://nextjs.org/)** — React Framework dengan App Router dan Turbopack
-- **[React 19](https://react.dev/)** — UI Library
-- **[TypeScript 5](https://www.typescriptlang.org/)** — Static typing untuk keamanan kode
+- **[Next.js 15](https://nextjs.org/)** — React framework with App Router & Turbopack
+- **[React 19](https://react.dev/)** — UI library
+- **[TypeScript 5](https://www.typescriptlang.org/)** — Static typing for code reliability
 - **[Tailwind CSS 3](https://tailwindcss.com/)** — Utility-first CSS framework
-- **[shadcn/ui](https://ui.shadcn.com/)** — Komponen UI berbasis Radix UI
+- **[shadcn/ui](https://ui.shadcn.com/)** — Accessible UI components built on Radix UI
 - **[Lucide React](https://lucide.dev/)** — Icon library
 
 ### Backend & Database
-- **[Firebase Firestore](https://firebase.google.com/docs/firestore)** — Real-time NoSQL database
-- **[Firebase Authentication](https://firebase.google.com/docs/auth)** — Autentikasi pengguna
-- **[MongoDB / Mongoose](https://mongoosejs.com/)** — Opsional untuk skenario tertentu
+- **[Firebase Firestore](https://firebase.google.com/docs/firestore)** — Real-time NoSQL cloud database
+- **[Firebase Authentication](https://firebase.google.com/docs/auth)** — User authentication service
+- **[MongoDB / Mongoose](https://mongoosejs.com/)** — Optional for alternative data persistence
 
-### Data & Laporan
-- **[TanStack Table v8](https://tanstack.com/table/latest)** — Tabel data yang powerful (sorting, filtering, pagination)
-- **[SheetJS (xlsx)](https://sheetjs.com/)** — Import/export data Excel
-- **[jsPDF](https://github.com/parallax/jsPDF)** — Generasi laporan PDF
-- **[Recharts](https://recharts.org/)** — Visualisasi data/chart
-- **[React Hook Form](https://react-hook-form.com/)** + **[Zod](https://zod.dev/)** — Form management & validasi schema
+### Data & Reporting
+- **[TanStack Table v8](https://tanstack.com/table/latest)** — Powerful data table with sorting, filtering, and pagination
+- **[SheetJS (xlsx)](https://sheetjs.com/)** — Excel file import & export
+- **[jsPDF](https://github.com/parallax/jsPDF)** — Client-side PDF report generation
+- **[Recharts](https://recharts.org/)** — Data visualization & charting
+- **[React Hook Form](https://react-hook-form.com/)** + **[Zod](https://zod.dev/)** — Form management & schema validation
 
 ### Desktop
-- **[Electron 38](https://www.electronjs.org/)** — Packaging sebagai aplikasi desktop native
+- **[Electron 38](https://www.electronjs.org/)** — Native desktop application packaging
 
 ### Deployment
-- **[Firebase App Hosting](https://firebase.google.com/docs/app-hosting)** — Cloud deployment
+- **[Firebase App Hosting](https://firebase.google.com/docs/app-hosting)** — Cloud deployment & hosting
 
 ---
 
-## 🏗️ Arsitektur Proyek
+## 🏗️ Application Architecture
 
-Aplikasi ini menggunakan **Next.js App Router** dengan struktur route group:
+The application uses the **Next.js App Router** with a route group pattern:
 
 ```
-/                   → Redirect ke /login atau /dashboard
-/login              → Halaman autentikasi
-/register           → Halaman registrasi pengguna baru
-/dashboard          → Dashboard statistik (Admin only)
-/inventory          → Manajemen data inventaris (Admin & User)
-/laporan            → Pembuatan & unduhan laporan (Admin only)
+/                   → Redirects to /login or /dashboard
+/login              → Public authentication page
+/register           → Public user registration page
+/dashboard          → Admin statistics dashboard (Admin only)
+/inventory          → Asset management table (Admin & User)
+/laporan            → Report generation & download (Admin only)
 ```
 
-Data di-_stream_ secara real-time dari **Firebase Firestore** menggunakan `onSnapshot` listener, sehingga perubahan data langsung tercermin di UI tanpa perlu refresh halaman.
+Data is streamed in **real-time** from Firebase Firestore using `onSnapshot` listeners, so any changes are immediately reflected in the UI without requiring a page refresh.
 
 ---
 
-## 💻 Persyaratan Sistem
+## 💻 Prerequisites
+
+Before you begin, ensure you have the following installed:
 
 - **Node.js** >= 18.x
-- **npm** >= 9.x atau **bun** >= 1.x
-- Akun **Firebase** (untuk Firestore & Authentication)
-- Browser modern (Chrome, Edge, Firefox)
+- **npm** >= 9.x or **bun** >= 1.x
+- A **Firebase** account (for Firestore & Authentication)
+- A modern browser (Chrome, Edge, Firefox)
 
 ---
 
-## ⚙️ Instalasi & Konfigurasi
+## ⚙️ Installation & Configuration
 
-### 1. Clone Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/DeniFirmansyah18/School-Inventory.git
 cd School-Inventory
 ```
 
-### 2. Install Dependensi
+### 2. Install Dependencies
 
 ```bash
 npm install
-# atau dengan bun
+# or using bun
 bun install
 ```
 
-### 3. Konfigurasi Firebase
+### 3. Configure Firebase
 
-Buat project di [Firebase Console](https://console.firebase.google.com/), aktifkan **Firestore Database** dan **Authentication** (Email/Password).
+Create a project in the [Firebase Console](https://console.firebase.google.com/), then enable **Firestore Database** and **Authentication** (Email/Password provider).
 
-Buat file `.env.local` di root project dan isi dengan konfigurasi Firebase Anda:
+Create a `.env.local` file in the project root and fill it with your Firebase credentials:
 
 ```env
 NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
@@ -147,139 +149,142 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
-> **⚠️ Penting:** Jangan pernah mengekspos file `.env.local` ke publik. File ini sudah terdaftar di `.gitignore`.
+> **⚠️ Important:** Never commit your `.env.local` file to version control. It is already listed in `.gitignore`.
 
-### 4. Aturan Keamanan Firestore
+### 4. Configure Firestore Security Rules
 
-Pastikan aturan Firestore Anda sudah dikonfigurasi dengan benar di Firebase Console untuk membatasi akses data.
+Set up appropriate Firestore security rules in your Firebase Console to restrict data access based on user authentication.
 
 ---
 
-## 🚀 Menjalankan Aplikasi
+## 🚀 Running the Application
 
-### Mode Development (Web)
+### Development Mode (Web)
 
 ```bash
 npm run dev
 ```
 
-Aplikasi akan berjalan di `http://localhost:9002`
+The application will be available at `http://localhost:9002`
 
-### Mode Production (Build & Start)
+### Production Build
 
 ```bash
 npm run build
 npm run start
 ```
 
-### Mode Desktop (Electron)
+### Desktop Mode (Electron)
 
 ```bash
 npm run electron
 ```
 
-> Perintah ini akan menjalankan dev server dan membuka jendela Electron secara bersamaan.
+> This command concurrently starts the dev server and opens an Electron window.
 
-### Build Installer Desktop
+### Build Desktop Installer
 
 ```bash
 npm run electron-pack
 ```
 
-Menghasilkan installer di folder `dist/` untuk platform yang sesuai (`.exe` untuk Windows, `.dmg` untuk macOS, `.AppImage` untuk Linux).
+Generates platform-specific installers in the `dist/` folder:
+- **Windows** → `.exe` (NSIS Installer)
+- **macOS** → `.dmg`
+- **Linux** → `.AppImage`
 
 ---
 
-## 📁 Struktur Direktori
+## 📁 Project Structure
 
 ```
 School-Inventory/
-├── docs/                    # Dokumentasi proyek
-│   └── blueprint.md         # Desain & panduan gaya aplikasi
+├── docs/                        # Project documentation
+│   └── blueprint.md             # App design & style guidelines
 ├── src/
-│   ├── ai/                  # Konfigurasi Genkit AI (jika digunakan)
+│   ├── ai/                      # Genkit AI configuration (optional)
 │   ├── app/
-│   │   ├── (main)/          # Route grup utama (authenticated)
-│   │   │   ├── dashboard/   # Halaman dashboard admin
-│   │   │   ├── inventory/   # Halaman manajemen inventaris
-│   │   │   │   ├── columns.tsx          # Definisi kolom tabel
-│   │   │   │   ├── inventory-detail.tsx # Komponen detail barang
-│   │   │   │   ├── inventory-form.tsx   # Form tambah/ubah barang
-│   │   │   │   ├── inventory-table.tsx  # Tabel utama inventaris
+│   │   ├── (main)/              # Authenticated route group
+│   │   │   ├── dashboard/       # Admin statistics dashboard
+│   │   │   ├── inventory/       # Inventory management module
+│   │   │   │   ├── columns.tsx          # Table column definitions
+│   │   │   │   ├── inventory-detail.tsx # Item detail view component
+│   │   │   │   ├── inventory-form.tsx   # Add/edit item form
+│   │   │   │   ├── inventory-table.tsx  # Main inventory data table
 │   │   │   │   └── page.tsx
-│   │   │   ├── laporan/     # Halaman pembuatan laporan
-│   │   │   └── layout.tsx   # Layout utama (sidebar + header)
-│   │   ├── api/             # API Routes Next.js
-│   │   │   ├── inventory/   # Endpoint inventaris
-│   │   │   ├── login/       # Endpoint autentikasi
-│   │   │   ├── logout/      # Endpoint logout
-│   │   │   └── register/    # Endpoint registrasi
-│   │   ├── login/           # Halaman login (public)
-│   │   ├── register/        # Halaman registrasi (public)
-│   │   └── globals.css      # Style global
+│   │   │   ├── laporan/         # Report generation module
+│   │   │   └── layout.tsx       # Main layout (sidebar + header)
+│   │   ├── api/                 # Next.js API Routes
+│   │   │   ├── inventory/       # Inventory CRUD endpoints
+│   │   │   ├── login/           # Authentication endpoint
+│   │   │   ├── logout/          # Logout endpoint
+│   │   │   └── register/        # Registration endpoint
+│   │   ├── login/               # Public login page
+│   │   ├── register/            # Public registration page
+│   │   └── globals.css          # Global styles
 │   ├── components/
-│   │   ├── auth-provider.tsx # Context autentikasi global
-│   │   └── ui/              # Komponen UI (shadcn/ui)
-│   ├── hooks/               # Custom React Hooks
-│   ├── lib/                 # Utilitas & service
-│   │   └── inventoryService.ts # Fungsi CRUD ke Firestore
-│   └── types/               # Definisi tipe TypeScript
-├── electron.js              # Entry point Electron
-├── apphosting.yaml          # Konfigurasi Firebase App Hosting
-├── next.config.mjs          # Konfigurasi Next.js
-├── tailwind.config.ts       # Konfigurasi Tailwind CSS
-└── tsconfig.json            # Konfigurasi TypeScript
+│   │   ├── auth-provider.tsx    # Global authentication context
+│   │   └── ui/                  # Reusable UI components (shadcn/ui)
+│   ├── hooks/                   # Custom React Hooks
+│   ├── lib/                     # Utilities & service layer
+│   │   └── inventoryService.ts  # Firestore CRUD operations
+│   └── types/                   # TypeScript type definitions
+├── electron.js                  # Electron main process entry point
+├── apphosting.yaml              # Firebase App Hosting configuration
+├── next.config.mjs              # Next.js configuration
+├── tailwind.config.ts           # Tailwind CSS configuration
+└── tsconfig.json                # TypeScript configuration
 ```
 
 ---
 
-## 👥 Peran Pengguna (Role)
+## 👥 User Roles & Permissions
 
-Aplikasi ini mendukung dua peran pengguna dengan hak akses yang berbeda:
+The application enforces two distinct roles with different access levels:
 
-| Fitur | 👤 User | 👑 Admin |
+| Feature | 👤 User | 👑 Admin |
 |---|:---:|:---:|
 | Login & Logout | ✅ | ✅ |
-| Melihat data inventaris | ✅ | ✅ |
-| Mencari & memfilter data | ✅ | ✅ |
-| Menambah data barang | ❌ | ✅ |
-| Mengubah data barang | ❌ | ✅ |
-| Menghapus data barang | ❌ | ✅ |
-| Impor data dari Excel | ❌ | ✅ |
-| Akses halaman Dashboard | ❌ | ✅ |
-| Membuat & mengunduh Laporan | ❌ | ✅ |
+| View inventory data | ✅ | ✅ |
+| Search & filter items | ✅ | ✅ |
+| Add new inventory item | ❌ | ✅ |
+| Edit inventory item | ❌ | ✅ |
+| Delete inventory item | ❌ | ✅ |
+| Import data from Excel | ❌ | ✅ |
+| Access Admin Dashboard | ❌ | ✅ |
+| Generate & download reports | ❌ | ✅ |
 
 ---
 
-## 📋 Panduan Penggunaan
+## 📋 Usage Guide
 
-### Impor Data dari Excel
+### Importing Data from Excel
 
-1. Masuk sebagai **Admin**
-2. Buka halaman **Inventaris**
-3. Klik tombol **"Impor Data"**
-4. Pilih file `.xlsx` atau `.xls` sesuai format yang ditentukan
-5. Data akan divalidasi dan disimpan secara otomatis ke Firestore
+1. Log in as an **Admin**
+2. Navigate to the **Inventory** page
+3. Click the **"Import Data"** button
+4. Select your `.xlsx` or `.xls` file matching the required column format
+5. Data will be automatically validated and saved to Firestore
 
-> Format kolom Excel harus sesuai dengan urutan kolom yang didefinisikan dalam `headerOrder` di `src/types/index.ts`.
+> The Excel column order must match the `headerOrder` array defined in `src/types/index.ts`.
 
-### Membuat Laporan
+### Generating a Report
 
-1. Masuk sebagai **Admin**
-2. Buka halaman **Laporan**
-3. Pilih **Jenis Laporan**: Seluruh Inventaris, Barang Aktif, Barang Dihapus, atau Laporan Pengadaan
-4. Pilih **Format File**: CSV, Excel (.xlsx), atau PDF
-5. (Opsional) Atur **Rentang Tanggal** untuk laporan pengadaan
-6. Klik **"Unduh Laporan"**
+1. Log in as an **Admin**
+2. Navigate to the **Report** page
+3. Select a **Report Type**: All Inventory, Active Items, Disposed Items, or Procurement Report
+4. Select a **File Format**: CSV, Excel (.xlsx), or PDF
+5. *(Optional)* Set a **Date Range** for the procurement report
+6. Click **"Download Report"**
 
 ---
 
-## 📄 Lisensi
+## 📄 License
 
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
 <p align="center">
-  Dibuat dengan ❤️ oleh <a href="https://github.com/DeniFirmansyah18">Deni Firmansyah</a>
+  Made with ❤️ by <a href="https://github.com/DeniFirmansyah18">Deni Firmansyah</a>
 </p>
