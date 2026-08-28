@@ -35,6 +35,9 @@
 
 ---
 
+<img width="1914" height="957" alt="SchoolInventory1" src="https://github.com/user-attachments/assets/d70c6b35-e314-4d92-b7e9-bd9881e594b7" />
+
+
 ## 🏫 About the Project
 
 **School Inventory** is a web-based asset management system specifically designed for school environments. It enables centralized management of school assets — from recording items and monitoring their condition, to generating reports in multiple formats.
