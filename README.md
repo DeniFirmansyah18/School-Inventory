@@ -279,7 +279,3 @@ Aplikasi ini mendukung dua peran pengguna dengan hak akses yang berbeda:
 Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
 ---
-
-<p align="center">
-  Dibuat dengan ❤️ oleh <a href="https://github.com/DeniFirmansyah18">Deni Firmansyah</a>
-</p>
